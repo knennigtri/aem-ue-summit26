@@ -1,0 +1,274 @@
+/* Content Fragment Detail Block Styles */
+.block.content-fragment {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Main Container */
+.content-fragment-detail {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero Section */
+.content-fragment-hero {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.content-fragment-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.content-fragment-image picture {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.content-fragment-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Title Overlay */
+.content-fragment-title-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgb(0 0 0 / 80%), transparent);
+  padding: 2rem;
+  color: white;
+}
+
+.content-fragment-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgb(0 0 0 / 50%);
+  line-height: 1.2;
+}
+
+/* Content Section */
+.content-fragment-content {
+  padding: 0 1rem;
+}
+
+/* Details Grid */
+.content-fragment-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: var(--background-color);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 8px;
+}
+
+.content-fragment-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--heading-color);
+  padding: 0.5rem 0.75rem;
+  background: var(--color-gray-100);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.detail-value:focus {
+  outline: none;
+  background: white;
+}
+
+/* Content Sections */
+.content-fragment-description,
+.content-fragment-itinerary {
+  margin-bottom: 3rem;
+}
+
+.content-fragment-description-content h2,
+.content-fragment-itinerary-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  color: var(--heading-color);
+  padding-bottom: 0.5rem;
+  
+  &::after {
+     border-bottom: none;
+  }
+}
+
+.content-fragment-description-content,
+.content-fragment-itinerary-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  padding: 1rem;
+  background: var(--background-color);
+  border-radius: 8px;
+  min-height: 100px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.content-fragment-description-content:focus,
+.content-fragment-itinerary-content:focus {
+  outline: none;
+  background: white;
+}
+
+/* Rich text content styling */
+.content-fragment-description-content p,
+.content-fragment-itinerary-content p {
+  margin: 0 0 1rem;
+}
+
+.content-fragment-description-content ul,
+.content-fragment-itinerary-content ul {
+  margin: 0 0 1rem 1.5rem;
+  padding: 0;
+}
+
+.content-fragment-description-content li,
+.content-fragment-itinerary-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Error State */
+.content-fragment-error {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-error, #dc3545);
+  font-size: 1.1rem;
+  border: 1px solid var(--color-error, #dc3545);
+  border-radius: 8px;
+  background: rgb(220 53 69 / 10%);
+}
+
+/* Empty State */
+.content-fragment-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-style: italic;
+  border: 2px dashed var(--color-gray-300);
+  border-radius: 8px;
+  background: var(--color-gray-50);
+}
+
+/* Responsive Design */
+@media (width <= 768px) {
+  .content-fragment-hero {
+    height: 300px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .content-fragment-title {
+    font-size: 2rem;
+  }
+  
+  .content-fragment-title-overlay {
+    padding: 1.5rem;
+  }
+  
+  .content-fragment-details-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .content-fragment-content {
+    padding: 0 0.5rem;
+  }
+  
+  .content-fragment-description,
+  .content-fragment-itinerary {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (width <= 480px) {
+  .content-fragment-hero {
+    height: 250px;
+    border-radius: 4px;
+  }
+  
+  .content-fragment-title {
+    font-size: 1.5rem;
+  }
+  
+  .content-fragment-title-overlay {
+    padding: 1rem;
+  }
+  
+  .content-fragment-details-grid {
+    padding: 1rem;
+  }
+  
+  .detail-value {
+    font-size: 1rem;
+  }
+}
+
+/* Focus management for Universal Editor */
+.content-fragment-detail:focus-within {
+  position: relative;
+}
+
+/* Accessibility */
+.content-fragment-title:focus {
+  outline-offset: 2px;
+  background: rgb(0 124 186 / 10%);
+  border-radius: 4px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  .content-fragment-details-grid,
+  .content-fragment-description-content,
+  .content-fragment-itinerary-content {
+    border-width: 2px;
+  }
+  
+  .content-fragment-title-overlay {
+    background: rgb(0 0 0 / 90%);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .detail-value,
+  .content-fragment-description-content,
+  .content-fragment-itinerary-content {
+    transition: none;
+  }
+} 
