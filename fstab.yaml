@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p193203-e2005985.adobeaemcloud.com/bin/franklin.delivery/knennigtri/aem-ue-summit-2026/main"
+    url: "https://author-p193203-e2005985.adobeaemcloud.com/bin/franklin.delivery/knennigtri/aem-ue-summit26/main"
     type: "markup"
     suffix: ".html"
