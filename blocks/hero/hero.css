@@ -17,9 +17,9 @@
   isolation: isolate;
 }
 
-/* Stack above image + tint (::after). Avoid z-index < 0 on the image: with overflow:hidden
-   that paints the photo behind the hero background so it disappears. */
-.hero > :not(picture) {
+/* Stack copy above the tint (::after) only. Do NOT give the image row z-index: 2 — with two
+   sibling divs at the same z-index, the second (text) paints over the first and hides the photo. */
+.hero > div:not(:has(picture)) {
   position: relative;
   z-index: 2;
 }
