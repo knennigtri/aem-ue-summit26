@@ -2,7 +2,9 @@
 header .nav-wrapper {
   background-color: var(--background-color);
   width: 100%;
-  z-index: 2;
+
+  /* Above main content overlays (e.g. hero copy at z-index 2); same numeric layer + later DOM loses to fixed nav */
+  z-index: 100;
   position: fixed;
 }
 
