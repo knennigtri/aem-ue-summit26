@@ -30,8 +30,8 @@ function appendSiteIndexPlaceholder(panel, variant) {
   text.className = 'nav-site-index-placeholder-text';
 
   if (variant === 'authoring') {
-    title.textContent = 'Browse the site';
-    text.textContent = 'Use the menu links above while you edit. A full list of every published page appears in Preview and on your live site.';
+    title.textContent = 'Navigation for training';
+    text.textContent = 'A full list of every published page appears in Preview and on your live site.';
   } else {
     title.textContent = 'Page list unavailable';
     text.textContent = 'We cannot load the full directory here. Use Preview or your live site to explore all pages, or continue with the menu above.';
