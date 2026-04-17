@@ -160,7 +160,10 @@ header nav .nav-sections {
 }
 
 header nav[aria-expanded='true'] .nav-sections {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
   visibility: visible;
   align-self: start;
 }
@@ -185,9 +188,19 @@ header nav .nav-sections ul > li > ul > li {
 
 @media (width >= 900px) {
   header nav .nav-sections {
-    display: block;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 24px;
     visibility: visible;
     white-space: nowrap;
+    min-width: 0;
+  }
+
+  /* Keep authored links + "All pages" on one row (do not grow nav to full width of middle column) */
+  header nav .nav-sections .default-content-wrapper {
+    flex: 0 1 auto;
+    min-width: 0;
   }
 
   header nav[aria-expanded='true'] .nav-sections {
@@ -264,6 +277,221 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
+/* Site index (query-index.json) — training / page discovery; keeps authored nav intact.
+   Must override .nav-sections ul { display:flex } and white-space:nowrap or list renders as many
+   narrow columns with one character per line. */
+header nav .nav-site-index {
+  position: relative;
+  flex: 0 0 auto;
+  max-width: 100%;
+  white-space: normal;
+}
+
+header nav .nav-site-index-toggle {
+  margin: 0;
+  border: 0;
+  padding: 0 16px 0 0;
+  background: none;
+  font: inherit;
+  font-weight: 500;
+  font-size: var(--body-font-size-s);
+  text-transform: uppercase;
+  color: var(--text-color);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+header nav .nav-site-index-toggle::after {
+  content: '';
+  display: inline-block;
+  margin-left: 6px;
+  transform: translateY(-50%) rotate(135deg);
+  width: 6px;
+  height: 6px;
+  border: 2px solid currentcolor;
+  border-radius: 0 1px 0 0;
+  border-width: 2px 2px 0 0;
+  vertical-align: middle;
+}
+
+header nav .nav-site-index-open .nav-site-index-toggle::after {
+  transform: translateY(50%) rotate(-45deg);
+}
+
+header nav .nav-site-index-panel {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 101;
+  box-sizing: border-box;
+  width: min(440px, calc(100vw - 48px));
+  min-width: min(300px, 100%);
+  max-height: min(70vh, 560px);
+  padding: 10px 0 12px;
+  overflow: auto;
+  border: 1px solid rgb(0 0 0 / 8%);
+  border-radius: 10px;
+  background-color: var(--background-color);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 12%);
+}
+
+/* Higher specificity than `header nav .nav-sections ul` flex row (authored top nav) */
+header nav .nav-sections .nav-site-index ul.nav-site-index-list {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 4px 12px 0;
+  list-style: none;
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+  text-transform: none;
+  white-space: normal;
+  gap: 0;
+  columns: unset;
+}
+
+header nav .nav-sections .nav-site-index ul.nav-site-index-nested {
+  display: block;
+  width: 100%;
+  margin: 6px 0 4px;
+  padding: 4px 0 4px 12px;
+  list-style: none;
+  border-left: 2px solid rgb(0 0 0 / 10%);
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-nested > li {
+  margin: 0;
+  padding: 2px 0;
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-tree > li {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 6px;
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-tree > li + li {
+  border-top: 1px solid rgb(0 0 0 / 6%);
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-label {
+  display: block;
+  padding: 6px 8px 2px;
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  color: var(--text-color);
+  opacity: 0.75;
+}
+
+/* Collapsible branches (<details>) in All pages */
+header nav .nav-sections .nav-site-index .nav-site-index-details {
+  margin: 0;
+  padding: 0;
+  border-radius: 6px;
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-summary {
+  position: relative;
+  box-sizing: border-box;
+  padding: 8px 8px 8px 22px;
+  list-style: none;
+  cursor: pointer;
+  font-size: var(--body-font-size-s);
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-summary::-webkit-details-marker {
+  display: none;
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-summary::marker {
+  content: '';
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-summary::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -4px;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: rotate(-45deg);
+  opacity: 0.65;
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-details[open] > .nav-site-index-summary::before {
+  margin-top: -2px;
+  transform: rotate(45deg);
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-details .nav-site-index-nested {
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+header nav .nav-sections .nav-site-index .nav-site-index-summary .nav-site-index-label {
+  padding: 0;
+  font-size: inherit;
+  font-weight: 500;
+  opacity: 1;
+}
+
+header nav .nav-site-index-empty {
+  padding: 12px 20px;
+  color: var(--text-color);
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+header nav .nav-site-index-placeholder {
+  box-sizing: border-box;
+  max-width: 28rem;
+  padding: 16px 20px 18px;
+}
+
+header nav .nav-site-index-placeholder-title {
+  margin: 0 0 8px;
+  font-size: var(--body-font-size-s);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+header nav .nav-site-index-placeholder-text {
+  margin: 0;
+  font-size: var(--body-font-size-xs);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-color);
+  opacity: 0.82;
+}
+
+@media (width < 900px) {
+  header nav .nav-site-index {
+    width: 100%;
+  }
+
+  header nav .nav-site-index-toggle {
+    padding: 8px 0;
+    width: 100%;
+    text-align: left;
+  }
+
+  header nav .nav-site-index-panel {
+    position: static;
+    margin-top: 8px;
+    width: 100%;
+    min-width: 0;
+    max-height: min(55vh, 420px);
+  }
+}
+
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
@@ -318,6 +546,69 @@ header .header.block nav {
         top: 2rem;
         left: -1rem;      
        }  
+    }
+
+    /* All pages tree: not the authored top nav; undo uppercase from .nav-sections a */
+    .nav-site-index .nav-site-index-nested a:any-link {
+      display: block;
+      padding: 8px;
+      color: var(--text-color);
+      text-decoration: none;
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: normal;
+      line-height: 1.35;
+      text-transform: none;
+      font-weight: 400;
+      font-size: var(--body-font-size-s);
+    }
+
+    .nav-site-index .nav-site-index-nested a:hover,
+    .nav-site-index .nav-site-index-nested a:focus {
+      background-color: var(--light-color);
+      text-decoration: none;
+    }
+
+    .nav-site-index .nav-site-index-tree > li > a:any-link {
+      display: block;
+      padding: 8px;
+      color: var(--text-color);
+      text-decoration: none;
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: normal;
+      line-height: 1.35;
+      text-transform: none;
+      font-weight: 400;
+      font-size: var(--body-font-size-s);
+    }
+
+    .nav-site-index .nav-site-index-tree > li > a:hover,
+    .nav-site-index .nav-site-index-tree > li > a:focus {
+      background-color: var(--light-color);
+      text-decoration: none;
+    }
+
+    .nav-site-index .nav-site-index-summary .nav-site-index-summary-link:any-link {
+      display: inline;
+      padding: 0;
+      margin: 0;
+      font-weight: 500;
+      color: var(--text-color);
+      text-decoration: none;
+      text-transform: none;
+      background-color: transparent;
+    }
+
+    .nav-site-index .nav-site-index-summary .nav-site-index-summary-link:hover,
+    .nav-site-index .nav-site-index-summary .nav-site-index-summary-link:focus {
+      text-decoration: underline;
+      background-color: transparent;
+    }
+
+    .nav-site-index .nav-site-index-summary:hover,
+    .nav-site-index .nav-site-index-summary:focus {
+      background-color: rgb(0 0 0 / 4%);
     }
   }
 }
